@@ -102,6 +102,7 @@ package org.apache.royale.core
 		 *  @playerversion Flash 10.2
 		 *  @playerversion AIR 2.6
 		 *  @productversion Royale 0.0
+		 * 	@royaleignorecoercion org.apache.royale.html.beads.IListView
 		 */
 		public function get dataGroup():IItemRendererParent
 		{
@@ -171,14 +172,10 @@ package org.apache.royale.core
 		 *  @playerversion AIR 2.6
 		 *  @productversion Royale 0.8
 		 */
-		public function addItemRenderer(renderer:IItemRenderer):void
+		public function addItemRenderer(renderer:IItemRenderer, dispatchAdded:Boolean):void
 		{
-			addElement(renderer, true);
-			
-			var newEvent:ItemAddedEvent = new ItemAddedEvent("itemAdded");
-			newEvent.item = renderer;
-			
-			dispatchEvent(newEvent);
+			addElement(renderer, dispatchAdded);
+			dispatchItemAdded(renderer);
 		}
 		
 		/**
@@ -193,13 +190,16 @@ package org.apache.royale.core
 		public function addItemRendererAt(renderer:IItemRenderer, index:int):void
 		{
 			addElementAt(renderer, index, true);
-			
+			dispatchItemAdded(renderer);
+		}
+		
+		private function dispatchItemAdded(renderer:IItemRenderer):void
+		{
 			var newEvent:ItemAddedEvent = new ItemAddedEvent("itemAdded");
 			newEvent.item = renderer;
 			
 			dispatchEvent(newEvent);
 		}
-		
 		/**
 		 * @copy org.apache.royale.core.IItemRendererParent#removeItemRenderer()
 		 * @private
@@ -243,6 +243,7 @@ package org.apache.royale.core
 		 *  @playerversion Flash 10.2
 		 *  @playerversion AIR 2.6
 		 *  @productversion Royale 0.8
+		 * 	@royaleignorecoercion org.apache.royale.core.IItemRenderer
 		 */
 		public function getItemRendererForIndex(index:int):IItemRenderer
 		{
@@ -258,6 +259,7 @@ package org.apache.royale.core
 		 *  @playerversion Flash 10.2
 		 *  @playerversion AIR 2.6
 		 *  @productversion Royale 0.8
+		 * 	@royaleignorecoercion org.apache.royale.html.supportClasses.DataItemRenderer
 		 */
 		public function updateAllItemRenderers():void
 		{
