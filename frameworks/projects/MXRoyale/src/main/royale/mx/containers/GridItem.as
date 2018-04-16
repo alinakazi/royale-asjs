@@ -24,30 +24,30 @@ package mx.containers
 //  Excluded APIs
 //--------------------------------------
 
-[Exclude(name="direction", kind="property")]
-[Exclude(name="focusEnabled", kind="property")]
-[Exclude(name="focusManager", kind="property")]
-[Exclude(name="focusPane", kind="property")]
-[Exclude(name="mouseFocusEnabled", kind="property")]
+// [Exclude(name="direction", kind="property")]
+// [Exclude(name="focusEnabled", kind="property")]
+// [Exclude(name="focusManager", kind="property")]
+// [Exclude(name="focusPane", kind="property")]
+// [Exclude(name="mouseFocusEnabled", kind="property")]
 
-[Exclude(name="adjustFocusRect", kind="method")]
-[Exclude(name="getFocus", kind="method")]
-[Exclude(name="isOurFocus", kind="method")]
-[Exclude(name="setFocus", kind="method")]
+// [Exclude(name="adjustFocusRect", kind="method")]
+// [Exclude(name="getFocus", kind="method")]
+// [Exclude(name="isOurFocus", kind="method")]
+// [Exclude(name="setFocus", kind="method")]
 
-[Exclude(name="focusIn", kind="event")]
-[Exclude(name="focusOut", kind="event")]
-[Exclude(name="move", kind="event")]
+// [Exclude(name="focusIn", kind="event")]
+// [Exclude(name="focusOut", kind="event")]
+// [Exclude(name="move", kind="event")]
 
-[Exclude(name="focusBlendMode", kind="style")]
-[Exclude(name="focusSkin", kind="style")]
-[Exclude(name="focusThickness", kind="style")]
-[Exclude(name="horizontalGap", kind="style")]
-[Exclude(name="verticalGap", kind="style")]
+// [Exclude(name="focusBlendMode", kind="style")]
+// [Exclude(name="focusSkin", kind="style")]
+// [Exclude(name="focusThickness", kind="style")]
+// [Exclude(name="horizontalGap", kind="style")]
+// [Exclude(name="verticalGap", kind="style")]
 
-[Exclude(name="focusInEffect", kind="effect")]
-[Exclude(name="focusOutEffect", kind="effect")]
-[Exclude(name="moveEffect", kind="effect")]
+// [Exclude(name="focusInEffect", kind="effect")]
+// [Exclude(name="focusOutEffect", kind="effect")]
+// [Exclude(name="moveEffect", kind="effect")]
 
 /**
  *  The GridItem container defines a grid cell in GridRow container.
@@ -115,11 +115,12 @@ package mx.containers
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
+ *  @royalesuppresspublicvarwarning
  */
 public class GridItem extends HBox
 {
-    include "../core/Version.as";
-
+/*     include "../core/Version.as";
+ */
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -148,8 +149,8 @@ public class GridItem extends HBox
     /**
      *  @private
      */
-    internal var colIndex:int = 0;
-
+/*     internal var colIndex:int = 0;
+ */
     //--------------------------------------------------------------------------
     //
     //  Public Properties
@@ -201,9 +202,9 @@ public class GridItem extends HBox
      *  @private
      *  Storage for the rowSpan property.
      */
-    private var _rowSpan:int = 1;
+   /*  private var _rowSpan:int = 1;
 
-    [Inspectable(category="General", defaultValue="1")]
+    [Inspectable(category="General", defaultValue="1")] */
 
     /**
      *  Number of rows of the Grid container spanned by the cell.
@@ -216,20 +217,21 @@ public class GridItem extends HBox
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function get rowSpan():int
+   /*  public function get rowSpan():int
     {
         return _rowSpan;
     }
-
+	*/
     /**
      *  @private
      */
+	 /*
     public function set rowSpan(value:int):void
     {
         _rowSpan = value;
 
         invalidateSize();
-    }
+    } */
 }
 
 }
