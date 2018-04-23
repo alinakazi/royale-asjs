@@ -142,14 +142,14 @@ package org.apache.royale.html.accessories
 
             var comp:IUIBase = _strand as IUIBase
             host = UIUtils.findPopUpHost(comp);
-			if (tt) host.removeElement(tt);
+			if (tt) host.popUpParent.removeElement(tt);
 
             tt = new ToolTip();
             tt.text = toolTip;
             var pt:Point = determinePosition(event, event.target);
             tt.x = pt.x;
             tt.y = pt.y;
-            host.addElement(tt, false); // don't trigger a layout
+            host.popUpParent.addElement(tt, false); // don't trigger a layout
 		}
 
 		/**
@@ -194,11 +194,13 @@ package org.apache.royale.html.accessories
          * @private
 		 * @royaleignorecoercion org.apache.royale.core.IUIBase
          */
-        private function rollOutHandler(event:MouseEvent):void
+        protected function rollOutHandler(event:MouseEvent):void
         {
+			IEventDispatcher(_strand).removeEventListener(MouseEvent.MOUSE_OUT, rollOutHandler, false);
+			
 			var comp:IUIBase = _strand as IUIBase;
             if (tt) {
-                host.removeElement(tt);
+                host.popUpParent.removeElement(tt);
 				tt = null;
 			}
         }

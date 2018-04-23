@@ -258,6 +258,8 @@ internal class CoreClasses
 	import org.apache.royale.utils.date.addSeconds; addSeconds;
 	import org.apache.royale.utils.date.addYears; addYears;
 
+    import org.apache.royale.core.TextLineMetrics; TextLineMetrics;
+    import org.apache.royale.utils.ClassSelectorList; ClassSelectorList;
 }
 
 }

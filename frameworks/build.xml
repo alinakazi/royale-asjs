@@ -138,6 +138,9 @@
 		<antcall target="FontAwesome"/>
 		<antcall target="Express"/>
         <antcall target="RoyaleSite"/>
+        <antcall target="MXRoyale"/>
+        <antcall target="Jewel"/>
+        <antcall target="JewelTheme"/>
     </target>
     
     <target name="fonts">
@@ -192,6 +195,9 @@
         <ant dir="${basedir}/projects/Text" target="clean"/>
         <ant dir="${basedir}/projects/TLF" target="clean"/>
         <ant dir="${basedir}/projects/RoyaleSite" target="clean"/>
+        <ant dir="${basedir}/projects/MXRoyale" target="clean"/>
+        <ant dir="${basedir}/projects/Jewel" target="clean"/>
+        <ant dir="${basedir}/themes/JewelTheme" target="clean"/>
         <ant dir="${basedir}/fontsrc" target="clean"/>
 
         <!-- delete the FlashBuilder executable directories -->
@@ -330,6 +336,15 @@
     </target>
     <target name="RoyaleSite" description="Clean build of RoyaleSite.swc">
         <ant dir="${basedir}/projects/RoyaleSite"/>
+    </target>
+    <target name="MXRoyale" description="Clean build of MXRoyale.swc">
+        <ant dir="${basedir}/projects/MXRoyale"/>
+    </target>
+    <target name="Jewel" description="Clean build of Jewel.swc">
+        <ant dir="${basedir}/projects/Jewel"/>
+    </target>
+    <target name="JewelTheme" description="Clean build of JewelTheme.swc">
+        <ant dir="${basedir}/themes/JewelTheme"/>
     </target>
 
     <target name="create-config" depends="playerglobal-setswfversion" description="Copy the config template and inject version numbers">

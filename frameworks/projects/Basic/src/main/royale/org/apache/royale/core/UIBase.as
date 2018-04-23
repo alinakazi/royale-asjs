@@ -21,6 +21,7 @@ package org.apache.royale.core
     COMPILE::SWF
     {
         import flash.display.DisplayObject;
+        import flash.display.DisplayObjectContainer;
         import flash.display.Sprite;
         import flash.display.Stage;
         import org.apache.royale.events.utils.MouseEventConverter;
@@ -30,13 +31,14 @@ package org.apache.royale.core
 	import org.apache.royale.events.IEventDispatcher;
 	import org.apache.royale.events.MouseEvent;
 	import org.apache.royale.events.ValueChangeEvent;
+	import org.apache.royale.utils.StringUtil;
 	import org.apache.royale.utils.loadBeadFromValuesManager;
-    import org.apache.royale.utils.StringUtil;
 
     COMPILE::JS
     {
         import org.apache.royale.html.util.addElementToWrapper;
         import org.apache.royale.utils.CSSUtils;
+        import org.apache.royale.utils.cssclasslist.addStyles;
     }
 	
 	/**
@@ -209,7 +211,7 @@ package org.apache.royale.core
         {
         }
         
-		private var _explicitWidth:Number;
+		protected var _explicitWidth:Number;
         
         /**
          *  The explicitly set width (as opposed to measured width
@@ -242,7 +244,7 @@ package org.apache.royale.core
 			dispatchEvent(new Event("explicitWidthChanged"));
 		}
 		
-		private var _explicitHeight:Number;
+		protected var _explicitHeight:Number;
 
         /**
          *  The explicitly set width (as opposed to measured width
@@ -593,37 +595,6 @@ package org.apache.royale.core
                     dispatchEvent(new Event("widthChanged"));
             }
         }
-
-        /**
-         * @private
-         * Used by layout to prevent causing unnecessary reflows when measuring.
-         */
-        private var _measuredWidth:Number;
-
-		public function get measuredWidth():Number
-		{
-			return _measuredWidth;
-		}
-
-		public function set measuredWidth(value:Number):void
-		{
-			_measuredWidth = value;
-		}
-        /**
-         * @private
-         * Used by layout to prevent causing unnecessary reflows when measuring.
-         */
-        private var _measuredHeight:Number;
-
-		public function get measuredHeight():Number
-		{
-			return _measuredHeight;
-		}
-
-		public function set measuredHeight(value:Number):void
-		{
-			_measuredHeight = value;
-		}
         
         /**
          *  @copy org.apache.royale.core.ILayoutChild#setWidthAndHeight
@@ -1060,13 +1031,25 @@ package org.apache.royale.core
          * 
          *  @royalesuppresspublicvarwarning
          */
-        public var typeNames:String;
+        public var typeNames:String = "";
         
         private var _className:String;
 
         /**
          *  The classname.  Often used for CSS
          *  class selector lookups.
+         * 
+         *  In Royale the list of class selectors actually applied to
+         *  the component can be more than what is specified in this
+         *  className property.   This property is primarily provided
+         *  to make it easy to specify class selectors in MXML.  If
+         *  you want to change the set of class selectors at runtime
+         *  it is more efficient to use the ClassList utility functions in
+         *  org.apache.royale.utils.classList.
+         * 
+         *  Do not mix usage of the ClassList utility functions and modifying
+         *  the className property at runtime.  It is best to think of this
+         *  className property as a write-once property.
          *  
          *  @langversion 3.0
          *  @playerversion Flash 10.2
@@ -1085,11 +1068,16 @@ package org.apache.royale.core
         {
             if (_className !== value)
             {
+                _className = value;
+
                 COMPILE::JS
                 {
-                    setClassName(typeNames ? StringUtil.trim(value + ' ' + typeNames) : value);             
+                    // set it now if it was set once in addedToParent
+                    // otherwise just wait for addedToParent
+                    if (parent)
+                        setClassName(computeFinalClassNames());             
                 }
-                _className = value;
+                
                 dispatchEvent(new Event("classNameChanged"));
             }
         }
@@ -1097,13 +1085,13 @@ package org.apache.royale.core
 		COMPILE::JS
         protected function computeFinalClassNames():String
 		{
-            return (_className ? _className + " " : "") + (typeNames ? typeNames : "");
+            return  _className ? _className + " " + typeNames : typeNames;
 		}
 
         COMPILE::JS
         protected function setClassName(value:String):void
         {
-            element.className = value;           
+            element.className = value;        
         }
 
         /**
@@ -1224,13 +1212,13 @@ package org.apache.royale.core
                 if (c is IUIBase)
                 {
                     if (c is IRenderedObject)
-                        addChild(IRenderedObject(c).$displayObject);
+                        $addChild(IRenderedObject(c).$displayObject);
                     else
-                        addChild(c as DisplayObject);                        
+                        $addChild(c as DisplayObject);                        
                     IUIBase(c).addedToParent();
                 }
                 else
-                    addChild(c as DisplayObject);
+                    $addChild(c as DisplayObject);
             }
             COMPILE::JS
             {
@@ -1255,13 +1243,13 @@ package org.apache.royale.core
                 if (c is IUIBase)
                 {
                     if (c is IRenderedObject)
-                        addChildAt(IUIBase(c).$displayObject, index);
+                        $addChildAt(IUIBase(c).$displayObject, index);
                     else
-                        addChildAt(c as DisplayObject, index);
+                        $addChildAt(c as DisplayObject, index);
                     IUIBase(c).addedToParent();
                 }
                 else
-                    addChildAt(c as DisplayObject, index);
+                    $addChildAt(c as DisplayObject, index);
             }
             COMPILE::JS
             {
@@ -1289,7 +1277,7 @@ package org.apache.royale.core
         {
             COMPILE::SWF
             {
-                return getChildAt(index) as IChild;
+                return $getChildAt(index) as IChild;
             }
             COMPILE::JS
             {
@@ -1315,9 +1303,9 @@ package org.apache.royale.core
             COMPILE::SWF
             {
                 if (c is IRenderedObject)
-                    return getChildIndex(IRenderedObject(c).$displayObject);
+                    return $getChildIndex(IRenderedObject(c).$displayObject);
                 else
-                    return getChildIndex(c as DisplayObject);
+                    return $getChildIndex(c as DisplayObject);
             }
             COMPILE::JS
             {
@@ -1346,9 +1334,9 @@ package org.apache.royale.core
             COMPILE::SWF
             {
                 if (c is IRenderedObject)
-                    removeChild(IRenderedObject(c).$displayObject);
+                    $removeChild(IRenderedObject(c).$displayObject);
                 else
-                    removeChild(c as DisplayObject);
+                    $removeChild(c as DisplayObject);
             }
             COMPILE::JS
             {
@@ -1368,7 +1356,7 @@ package org.apache.royale.core
         {
             COMPILE::SWF
             {
-                return numChildren;
+                return $numChildren;
             }
             COMPILE::JS
             {
@@ -1394,11 +1382,8 @@ package org.apache.royale.core
 			
             COMPILE::JS
             {
-				if (typeNames)
-                {
-                    setClassName(computeFinalClassNames());
-                }
-
+			    setClassName(computeFinalClassNames());
+                
                 if (style)
                     ValuesManager.valuesImpl.applyStyles(this, style);
             }
@@ -1622,6 +1607,57 @@ package org.apache.royale.core
         {
             return super.dispatchEvent(event);
         }
+        }
+        
+        COMPILE::SWF
+        public function $addChild(child:DisplayObject):DisplayObject
+        {
+            return super.addChild(child);
+        }
+        COMPILE::SWF
+        public function $addChildAt(child:DisplayObject, index:int):DisplayObject
+        {
+            return super.addChildAt(child, index);
+        }
+        COMPILE::SWF
+        public function $removeChildAt(index:int):DisplayObject
+        {
+            return super.removeChildAt(index);
+        }
+        COMPILE::SWF
+        public function $removeChild(child:DisplayObject):DisplayObject
+        {
+            return super.removeChild(child);
+        }
+        COMPILE::SWF
+        public function $getChildAt(index:int):DisplayObject
+        {
+            return super.getChildAt(index);
+        }
+        COMPILE::SWF
+        public function $setChildIndex(index:int):void
+        {
+            super.setChildIndex(index);
+        }
+        COMPILE::SWF
+        public function $getChildIndex(child:DisplayObject):int
+        {
+            return super.getChildIndex(child);
+        }
+        COMPILE::SWF
+        public function $getChildByName(name:String):DisplayObject
+        {
+            return super.getChildByName(name);
+        }
+        COMPILE::SWF
+        public function get $numChildren():int
+        {
+            return super.numChildren;
+        }
+        COMPILE::SWF
+        public function get $parent():DisplayObjectContainer
+        {
+            return super.parent;
         }
 
 	}
