@@ -17,11 +17,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<js:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
-		  xmlns:js="library://ns.apache.org/royale/basic"
-		  xmlns:html="library://ns.apache.org/royale/html"
-		  xmlns:j="library://ns.apache.org/royale/jewel"
-		  className="container">
+<j:SectionContent xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:j="library://ns.apache.org/royale/jewel"
+				xmlns:js="library://ns.apache.org/royale/basic"
+				xmlns:html="library://ns.apache.org/royale/html">
     
 	<fx:Script>
 		<![CDATA[      
@@ -40,20 +39,21 @@ limitations under the License.
 		]]>
 	</fx:Script>
 
-	<js:beads>
-		<j:HorizontalLayoutWithPaddingAndGap gap="10"/>
-		<js:ViewDataBinding />
-	</js:beads>
-	
-	<html:H3 text="Jewel DropDownList"/>
-	
-	<j:DropDownList dataProvider="{strings}"/>
+	<j:Card width="350">
+		<j:beads>
+			<j:HorizontalLayout gap="3"/>
+			<js:ViewDataBinding />
+		</j:beads>
 		
+		<html:H3 text="Jewel DropDownList"/>
+		
+		<j:DropDownList dataProvider="{strings}"/>
 
-	<!-- <j:DropDownList change="changeHandler(event)">
-		<j:dataProvider>
-			<js:ArrayList id="avengersCharacters" source="[Iron Man, Hulk, Thor, Captain America, Black Widow]" />
-		</j:dataProvider>
-	</j:DropDownList> -->
+		<!-- <j:DropDownList change="changeHandler(event)">
+			<j:dataProvider>
+				<j:ArrayList id="avengersCharacters" source="[Iron Man, Hulk, Thor, Captain America, Black Widow]" />
+			</j:dataProvider>
+		</j:DropDownList> -->
+	</j:Card>
 	
-</js:Group>
+</j:SectionContent>

@@ -56,10 +56,10 @@
             <includeClass>JewelThemeClasses</includeClass>
           </includeClasses>
           <includeFiles>
-            <include-file>
+            <!-- <include-file>
               <name>assets/*</name>
               <path>../src/main/resources/assets/*</path>
-            </include-file>
+            </include-file> -->
             <include-file>
               <name>defaults.css</name>
               <path>../src/main/resources/defaults.css</path>
@@ -70,7 +70,7 @@
       <plugin>
         <groupId>nl.geodienstencentrum.maven</groupId>
         <artifactId>sass-maven-plugin</artifactId>
-        <version>3.5.2</version>
+        <version>3.5.4</version>
         <configuration>
           <!-- <sassOptions>
             <style>:compressed</style>
@@ -107,20 +107,6 @@
       <version>${flash.version}</version>
       <type>swc</type>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.royale.framework</groupId>
-      <artifactId>Basic</artifactId>
-      <version>0.9.3-SNAPSHOT</version>
-      <type>swc</type>
-      <classifier>swf</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.royale.framework</groupId>
-      <artifactId>Basic</artifactId>
-      <version>0.9.3-SNAPSHOT</version>
-      <type>swc</type>
-      <classifier>js</classifier>
     </dependency>
     <dependency>
       <groupId>org.apache.royale.framework</groupId>

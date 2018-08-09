@@ -19,15 +19,13 @@
 package org.apache.royale.jewel
 {
 	import org.apache.royale.core.IRangeModel;
-	import org.apache.royale.core.UIBase;
+	import org.apache.royale.core.StyledUIBase;
 	import org.apache.royale.events.Event;
-    import org.apache.royale.utils.ClassSelectorList;
 
     COMPILE::JS
     {
         import org.apache.royale.core.WrappedHTMLElement;
 		import org.apache.royale.html.util.addElementToWrapper;
-		import org.apache.royale.utils.cssclasslist.addStyles; 
     }
 
 	//--------------------------------------
@@ -80,7 +78,7 @@ package org.apache.royale.jewel
 	 *  @playerversion AIR 2.6
 	 *  @productversion Royale 0.9.3
 	 */
-	public class Slider extends UIBase
+	public class Slider extends StyledUIBase
 	{
 		/**
 		 *  constructor.
@@ -94,8 +92,7 @@ package org.apache.royale.jewel
 		{
 			super();
 
-            classSelectorList = new ClassSelectorList(this);
-			typeNames = "jewel slider";
+            typeNames = "jewel slider";
 
 			IRangeModel(model).value = 0;
 			IRangeModel(model).minimum = 0;
@@ -104,8 +101,6 @@ package org.apache.royale.jewel
 			IRangeModel(model).snapInterval = 1;
 		}
 		
-        protected var classSelectorList:ClassSelectorList;
-        
 		/**
 		 *  The current value of the Slider.
 		 *
@@ -165,7 +160,7 @@ package org.apache.royale.jewel
 		 *  @langversion 3.0
 		 *  @playerversion Flash 10.2
 		 *  @playerversion AIR 2.6
-		 *  @productversion Royale 0.0
+		 *  @productversion Royale 0.9.3
 		 */
 		public function get snapInterval():Number
 		{
@@ -195,21 +190,6 @@ package org.apache.royale.jewel
             IRangeModel(model).stepSize = value;
         }
 
-		COMPILE::JS
-		private var _positioner:WrappedHTMLElement;
-
-		COMPILE::JS
-		override public function get positioner():WrappedHTMLElement
-		{
-			return _positioner;
-		}
-
-		COMPILE::JS
-		override public function set positioner(value:WrappedHTMLElement):void
-		{
-			_positioner = value;
-		}
-
         /**
          * @royaleignorecoercion org.apache.royale.core.WrappedHTMLElement
 		 * @royaleignorecoercion HTMLInputElement
@@ -226,15 +206,9 @@ package org.apache.royale.jewel
 			div.appendChild(input);
 
             positioner = div as WrappedHTMLElement;
-            _positioner.royale_wrapper = this;
+            positioner.royale_wrapper = this;
 			
 			return element;
-        }
-
-        COMPILE::JS
-        override protected function setClassName(value:String):void
-        {
-            classSelectorList.addNames(value);
         }
     }
 }

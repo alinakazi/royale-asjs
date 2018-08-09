@@ -49,5 +49,42 @@ package valueObjects
             _description = value;
         }
 
+        private var _taxonomy:Taxonomy;
+
+        public function get taxonomy():Taxonomy
+        {
+            return _taxonomy;
+        }
+        
+        public function set taxonomy(value:Taxonomy):void
+        {
+            _taxonomy = value;
+        }
+
+        // collection of zones (Zone), we can use Array and ArrayList
+        private var _zones:Array;
+
+        public function get zones():Array
+        {
+            return _zones;
+        }
+        
+        public function set zones(value:Array):void
+        {
+            _zones = value;
+        }
+
+        private var _flavors:Array = null;
+
+        public function get flavors():Array
+        {
+            return _flavors;
+        }
+        
+        public function set flavors(value:Array):void
+        {
+            _flavors = value;
+        }
+
 	}
 }

@@ -37,6 +37,12 @@
     <module>BE0002_Using_Jewel_Alert_Control</module>
     <module>BE0003_Using_Jewel_Slider_Control</module>
     <module>BE0004_Adding_an_item_to_a_Jewel_List</module>
+    <module>BE0005_Creating_a_group_of_Jewel_RadioButtons</module>
+    <module>BE0006_Binding_the_text_property_of_a_Jewel_Textinput_to_update_a_text_label</module>
+    <module>BE0007_Selecting_options_from_a_group_of_jewel_checkbox_controls</module>
+    <module>BE0008_Using_View_States_to_show_or_hide_content</module>
+    <module>BE0009_Using_an_Item_ Renderer_with_a_List</module>
+    <module>BE0010_Customization_through_the_Royale_API</module>
   </modules>
 
   <build>

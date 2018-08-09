@@ -20,16 +20,51 @@
 */
 
 @namespace "http://www.w3.org/1999/xhtml";
+@namespace j "library://ns.apache.org/royale/jewel";
 
-.Application
+.mainContent 
 {
-    padding: 10px;
-	margin: 10px;
+    padding: 5px;
 }
 
-/* .container {
-    background: #efefef;
-    border-radius: 10px;
-    padding: 20px;
-} */
-	
+.jewel.section
+{
+    padding-top: 20px;
+}
+
+.iconListItemRenderer
+{
+    IItemRenderer: ClassReference("itemRenderers.IconListItemRenderer");
+}
+.iconListItemRenderer .fonticon
+{
+    margin-right: 24px;
+}
+
+.navIconLinkItemRenderer
+{
+    IItemRenderer: ClassReference("itemRenderers.NavigationIconLinkItemRenderer");
+}
+
+.navIconLinkItemRenderer .fonticon
+{
+    margin-right: 24px;
+}
+
+.jewel.drawerheader::before 
+{
+    /*padding-top: 9 / 16 * 100%;*/
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.wrapper {
+    /* outline: 0px dashed navy; */
+}
+
+.box {
+    background: #dedede;
+    border-radius: 3px;
+    padding: 12px;
+    color: white;
+    /* outline: 1px dashed navy; */
+}

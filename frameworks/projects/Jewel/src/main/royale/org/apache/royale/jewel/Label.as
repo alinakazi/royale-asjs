@@ -19,7 +19,7 @@
 package org.apache.royale.jewel
 {
 	import org.apache.royale.core.ITextModel;
-	import org.apache.royale.core.UIBase;
+	import org.apache.royale.core.StyledUIBase;
 	import org.apache.royale.core.ValuesManager;
 	import org.apache.royale.events.Event;
 	import org.apache.royale.events.IEventDispatcher;
@@ -35,12 +35,12 @@ package org.apache.royale.jewel
      *  @langversion 3.0
      *  @playerversion Flash 10.2
      *  @playerversion AIR 2.6
-     *  @productversion Royale 0.9.0
+     *  @productversion Royale 0.9.3
      */
     [Event(name="click", type="org.apache.royale.events.MouseEvent")]
 
 	/*
-	 *  Label probably should extend TextField directly,
+	 *  Label probably should extend TextInput directly,
 	 *  but the player's APIs for TextLine do not allow
 	 *  direct instantiation, and we might want to allow
 	 *  Labels to be declared and have their actual
@@ -55,9 +55,9 @@ package org.apache.royale.jewel
      *  @langversion 3.0
      *  @playerversion Flash 10.2
      *  @playerversion AIR 2.6
-     *  @productversion Royale 0.0
+     *  @productversion Royale 0.9.3
      */
-    public class Label extends UIBase
+    public class Label extends StyledUIBase
 	{
         /**
          *  Constructor.
@@ -65,7 +65,7 @@ package org.apache.royale.jewel
          *  @langversion 3.0
          *  @playerversion Flash 10.2
          *  @playerversion AIR 2.6
-         *  @productversion Royale 0.0
+         *  @productversion Royale 0.9.3
          */
 		public function Label()
 		{
@@ -86,7 +86,7 @@ package org.apache.royale.jewel
          *  @langversion 3.0
          *  @playerversion Flash 10.2
          *  @playerversion AIR 2.6
-         *  @productversion Royale 0.0
+         *  @productversion Royale 0.9.3
          */
 		public function get text():String
 		{
@@ -128,7 +128,7 @@ package org.apache.royale.jewel
          *  @langversion 3.0
          *  @playerversion Flash 10.2
          *  @playerversion AIR 2.6
-         *  @productversion Royale 0.0
+         *  @productversion Royale 0.9.3
          */
 		public function get html():String
 		{
@@ -158,6 +158,30 @@ package org.apache.royale.jewel
             }
         }
 
+        private var _multiline:Boolean;
+        /**
+		 *  A boolean flag to activate "multiline" effect selector.
+		 *  Allow the label to have more than one line if needed
+         *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 */
+        public function get multiline():Boolean
+        {
+            return _multiline;
+        }
+
+        public function set multiline(value:Boolean):void
+        {
+            if (_multiline != value)
+            {
+                _multiline = value;
+                toggleClass("multiline", _multiline);
+            }
+        }
+
         /**
          *  @private
          */
@@ -175,11 +199,13 @@ package org.apache.royale.jewel
         COMPILE::JS
         override protected function createElement():WrappedHTMLElement
         {
-			addElementToWrapper(this,'span');
+			addElementToWrapper(this,'div');
 
             textNode = document.createTextNode(_text) as Text;
             element.appendChild(textNode);
             
+            positioner = element;
+
             return element;
         }
 

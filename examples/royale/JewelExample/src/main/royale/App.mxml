@@ -21,21 +21,15 @@
 <j:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:j="library://ns.apache.org/royale/jewel"
 			   xmlns:js="library://ns.apache.org/royale/basic"
-			   xmlns:html="library://ns.apache.org/royale/html"
 			   xmlns:local="*">
 
 	<fx:Style source="../../main/resources/jewel-example-styles.css"/>
 	
-	<js:valuesImpl>
+	<j:valuesImpl>
 		<js:SimpleCSSValuesImpl />
-	</js:valuesImpl>
-	<js:initialView>
-		<js:View>
-			<js:beads>
-				<j:VerticalLayoutWithPaddingAndGap gap="10"/>
-			</js:beads>
-			<html:H1 text="Apache Royale Jewel UI Set Theme Showcase"/>
-			<local:MainContent/>
-        </js:View>
-	</js:initialView>
+	</j:valuesImpl>
+
+	<j:initialView>
+		<local:MainContent/>
+	</j:initialView>
 </j:Application>

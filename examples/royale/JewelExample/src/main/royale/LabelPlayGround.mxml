@@ -17,11 +17,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<js:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
-		  xmlns:js="library://ns.apache.org/royale/basic"
-		  xmlns:html="library://ns.apache.org/royale/html"
-		  xmlns:j="library://ns.apache.org/royale/jewel"
-		  className="container">
+<j:SectionContent xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:j="library://ns.apache.org/royale/jewel"
+		xmlns:html="library://ns.apache.org/royale/html">
     
 	<fx:Script>
 		<![CDATA[
@@ -33,13 +31,13 @@ limitations under the License.
         }
     	]]>
 	</fx:Script>
+	
+	<j:Card width="350">
+		<html:H3 text="Jewel Label"/>
+		
+		<j:Label id="label" text="This is a Label" click="labelClick(event)"/>
 
-	<js:beads>
-		<j:VerticalLayoutWithPaddingAndGap gap="10"/>
-	</js:beads>
-	
-	<html:H3 text="Jewel Label"/>
-	
-	<j:Label id="label" text="This is a Label" click="labelClick(event)"/>
-	
-</js:Group>
+		<j:Label text="This is a multiline label with more text that wraps if container has set a width"
+				multiline="true"/>
+	</j:Card>
+</j:SectionContent>

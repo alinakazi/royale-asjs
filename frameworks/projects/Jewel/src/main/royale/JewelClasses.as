@@ -27,15 +27,32 @@ package
      */
     internal class JewelClasses
     {
+        import org.apache.royale.jewel.beads.models.ImageModel; ImageModel;
         import org.apache.royale.jewel.beads.models.SliderRangeModel; SliderRangeModel;
+        import org.apache.royale.jewel.beads.models.AlertModel; AlertModel;
+        import org.apache.royale.jewel.beads.models.TitleBarModel; TitleBarModel;
+        import org.apache.royale.jewel.beads.models.TextModel; TextModel;
+        import org.apache.royale.jewel.beads.models.RangeModel; RangeModel;
+        import org.apache.royale.jewel.beads.models.DateChooserModel; DateChooserModel;
+        import org.apache.royale.jewel.beads.models.DataProviderModel; DataProviderModel;
+
         import org.apache.royale.jewel.beads.controllers.SliderMouseController; SliderMouseController;
+        import org.apache.royale.jewel.beads.controllers.DateChooserMouseController; DateChooserMouseController;
+        import org.apache.royale.jewel.beads.controllers.DateFieldMouseController; DateFieldMouseController;
         import org.apache.royale.jewel.beads.controllers.AlertController; AlertController;
+        import org.apache.royale.jewel.beads.controllers.ListSingleSelectionMouseController; ListSingleSelectionMouseController;
         
+        import org.apache.royale.jewel.beads.views.ImageView; ImageView;
         import org.apache.royale.jewel.beads.views.SliderView; SliderView;
         import org.apache.royale.jewel.beads.views.AlertView; AlertView;
         import org.apache.royale.jewel.beads.views.TitleBarView; TitleBarView;
         import org.apache.royale.jewel.beads.views.AlertTitleBarView; AlertTitleBarView;
         import org.apache.royale.jewel.beads.views.ListView; ListView;
+        import org.apache.royale.jewel.beads.views.DateChooserView; DateChooserView;
+        import org.apache.royale.jewel.supportClasses.datechooser.DateChooserTable; DateChooserTable;
+        import org.apache.royale.jewel.beads.views.TableView; TableView;
+
+        import org.apache.royale.jewel.supportClasses.scrollbar.ScrollingViewport; ScrollingViewport;
         
         COMPILE::SWF
 	    {
@@ -48,16 +65,28 @@ package
 		    import org.apache.royale.jewel.beads.views.CheckBoxView; CheckBoxView;
 
             import org.apache.royale.jewel.beads.views.DropDownListView; DropDownListView;
+            import org.apache.royale.jewel.beads.controllers.DropDownListController; DropDownListController;
         }
 
-        import org.apache.royale.jewel.beads.layouts.HorizontalLayout; HorizontalLayout;
-        import org.apache.royale.jewel.beads.layouts.VerticalLayout; VerticalLayout;
-        import org.apache.royale.jewel.beads.layouts.HorizontalLayoutWithPaddingAndGap; HorizontalLayoutWithPaddingAndGap;
-        import org.apache.royale.jewel.beads.layouts.VerticalLayoutWithPaddingAndGap; VerticalLayoutWithPaddingAndGap;
-        import org.apache.royale.jewel.beads.layouts.HorizontalLayoutSpaceBetween; HorizontalLayoutSpaceBetween;
+        // import org.apache.royale.html.beads.TableCellView; TableCellView;
+        // import org.apache.royale.html.beads.layouts.SimpleTableLayout; SimpleTableLayout;
+        // import org.apache.royale.html.beads.layouts.TableCellLayout; TableCellLayout;
+        // import org.apache.royale.html.beads.layouts.TableHeaderLayout; TableHeaderLayout;
+
+        import org.apache.royale.jewel.ResponsiveSizes; ResponsiveSizes;
+
+        import org.apache.royale.jewel.supportClasses.INavigationRenderer; INavigationRenderer;
+        import org.apache.royale.jewel.supportClasses.IActivable; IActivable;
+        import org.apache.royale.jewel.supportClasses.textinput.ITextInput; ITextInput;
+
+        import org.apache.royale.jewel.supportClasses.datagrid.DataGridColumn; DataGridColumn;
+
+        import org.apache.royale.jewel.supportClasses.table.TBody;
+        import org.apache.royale.jewel.supportClasses.table.THead;
+        import org.apache.royale.jewel.supportClasses.table.TFoot;
         
         //import org.apache.royale.jewel.beads.views.JewelLabelViewBead; JewelLabelViewBead;
-
+        import org.apache.royale.jewel.beads.controllers.ItemRendererMouseController; ItemRendererMouseController;
     }
 
 }

@@ -28,24 +28,29 @@ package org.apache.royale.jewel.beads.layouts
 	import org.apache.royale.core.IUIBase;
     import org.apache.royale.core.layout.EdgeData;
 	import org.apache.royale.core.ValuesManager;
+	import org.apache.royale.events.Event;
+	import org.apache.royale.core.IStrand;
+	import org.apache.royale.utils.StringUtil;
+	import org.apache.royale.core.layout.ILayoutStyleProperties;
+
+
 	COMPILE::JS
 	{
-		import org.apache.royale.utils.cssclasslist.addStyles;
 		import org.apache.royale.core.WrappedHTMLElement;
+		import org.apache.royale.core.UIBase;
 	}
 
 	/**
 	 *  The VerticalLayout class is a simple layout
-	 *  bead.  It takes the set of children and lays them out
-	 *  vertically in one column, separating them according to
-	 *  CSS layout rules for margin and horizontal-align styles.
+	 *  bead similar to VerticalLayout, but it adds support for
+	 *  padding and gap values.
 	 *
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10.2
 	 *  @playerversion AIR 2.6
 	 *  @productversion Royale 0.9.3
 	 */
-	public class VerticalLayout extends LayoutBase implements IBeadLayout
+	public class VerticalLayout extends SimpleVerticalLayout implements ILayoutStyleProperties
 	{
 		/**
 		 *  Constructor.
@@ -61,12 +66,269 @@ package org.apache.royale.jewel.beads.layouts
 		}
 
 		/**
+		 * @royalesuppresspublicvarwarning
+		 */
+		public static const LAYOUT_TYPE_NAMES:String = "layout vertical";
+
+		/**
+		 *  @copy org.apache.royale.core.IBead#strand
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 *  @royaleignorecoercion org.apache.royale.core.IParentIUIBase
+		 *  @royaleignorecoercion org.apache.royale.core.WrappedHTMLElement
+		 */
+		override public function set strand(value:IStrand):void
+		{
+			super.strand = value;
+
+			COMPILE::JS
+			{
+				applyStyleToLayout(hostComponent, "gap");
+				setGap(_gap);
+			}
+		}
+
+		/**
+		 *  @private
+		 */
+		private var _paddingTop:Number = 0;
+
+		/**
+		 *  The top padding value.
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 */
+		public function get paddingTop():Number
+		{
+			return _paddingTop;
+		}
+
+		/**
+		 *  @private
+		 */
+		public function set paddingTop(value:Number):void
+		{
+			_paddingTop = value;
+		}
+
+		/**
+		 *  @private
+		 */
+		private var _paddingRight:Number = 0;
+
+		/**
+		 *  The right padding value.
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 */
+		public function get paddingRight():Number
+		{
+			return _paddingRight;
+		}
+
+		/**
+		 *  @private
+		 */
+		public function set paddingRight(value:Number):void
+		{
+			_paddingRight = value;
+		}
+
+		/**
+		 *  @private
+		 */
+		private var _paddingBottom:Number = 0;
+
+		/**
+		 *  The top padding value.
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 */
+		public function get paddingBottom():Number
+		{
+			return _paddingBottom;
+		}
+
+		/**
+		 *  @private
+		 */
+		public function set paddingBottom(value:Number):void
+		{
+			_paddingBottom = value;
+		}
+
+		/**
+		 *  @private
+		 */
+		private var _paddingLeft:Number = 0;
+
+		/**
+		 *  The left padding value.
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 */
+		public function get paddingLeft():Number
+		{
+			return _paddingLeft;
+		}
+
+		/**
+		 *  @private
+		 */
+		public function set paddingLeft(value:Number):void
+		{
+			_paddingLeft = value;
+		}
+
+		private var gapInitialized:Boolean;
+		// private var _gap:Boolean;
+		/**
+		 *  Assigns variable gap to grid from 1 to 20
+		 *  Activate "gap-Xdp" effect selector to set a numeric gap 
+		 *  between grid cells
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 */
+		// public function get gap():Boolean
+        // {
+        //     return _gap;
+        // }
+
+		/**
+		 *  @private
+		 */
+		// public function set gap(value:Boolean):void
+		// {
+		// 	if (_gap != value)
+        //     {
+		// 		COMPILE::JS
+		// 		{
+		// 			if(hostComponent)
+		// 				setGap(value);
+					
+		// 			_gap = value;
+		// 			gapInitialized = true;
+		// 		}
+        //     }
+		// }
+
+		// COMPILE::JS
+		// private function setGap(value:Boolean):void
+		// {
+		// 	if (value)
+		// 		hostClassList.add("gap");
+		// 	else
+		// 		hostClassList.remove("gap");
+		// }
+
+		/**
+		 *  Get the component layout style and apply to if exists
+		 * 
+		 *  @param component the IUIBase component that host this layout
+		 *  @param cssProperty the style property in css set for the component to retrieve
+		 * 
+		 *  @see org.apache.royale.core.layout.ILayoutStyleProperties#applyStyleToLayout(component:IUIBase, cssProperty:String):void
+		 * 
+ 		 *  @langversion 3.0
+ 		 *  @playerversion Flash 10.2
+ 		 *  @playerversion AIR 2.6
+ 		 *  @productversion Royale 0.9.3
+ 		 */
+		public function applyStyleToLayout(component:IUIBase, cssProperty:String):void
+		{	
+			var cssValue:* = ValuesManager.valuesImpl.getValue(component, cssProperty);
+			if (cssValue !== undefined)
+			{
+				switch(cssProperty)
+				{
+					case "gap":
+						if(!gapInitialized)
+							gap = Number(cssValue);
+						break;
+					default:
+						break;
+				}	
+			}
+		}
+
+
+		// number of gap styles available in CSS @see $gaps variable in _layout.sass
+		public static const GAPS:Number = 10;
+		// gap step size in each gap style rule in CSS @see $gap-step variable in _layout.sass
+		public static const GAP_STEP:Number = 3;
+
+		protected var _gap:Number = 0;
+		/**
+		 *  Assigns variable gap in steps of GAP_STEP. You have available GAPS*GAP_STEP gap styles
+		 *  Activate "gap-{X}x{GAP_STEP}px" effect selector to set a numeric gap between elements.
+		 *  i.e: gap-2x3px will result in a gap of 6px
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 */
+		public function get gap():Number
+        {
+            return _gap;
+        }
+
+		/**
+		 *  @private
+		 */
+		public function set gap(value:Number):void
+		{
+			if (_gap != value)
+            {
+				COMPILE::JS
+				{
+					if(hostComponent)
+						setGap(value);
+					
+					_gap = value;
+					gapInitialized = true;
+				}
+            }
+		}
+
+		COMPILE::JS
+		private function setGap(value:Number):void
+		{
+			if (value >= 0 && value <= GAPS*GAP_STEP)
+			{
+				if (hostClassList.contains("gap-" + _gap + "x" + GAP_STEP + "px"))
+					hostClassList.remove("gap-" + _gap + "x" + GAP_STEP + "px");
+				if(value != 0)
+					hostClassList.add("gap-" + value + "x" + GAP_STEP + "px");
+			} else
+				throw new Error("Gap needs to be between 0 and " + GAPS*GAP_STEP);
+		}
+
+		/**
 		 *  Layout children vertically
 		 *
 		 *  @langversion 3.0
 		 *  @playerversion Flash 10.2
 		 *  @playerversion AIR 2.6
-		 *  @productversion Royale 0.0
+		 *  @productversion Royale 0.9.3
 		 *  @royaleignorecoercion org.apache.royale.core.ILayoutHost
 		 *  @royaleignorecoercion org.apache.royale.core.WrappedHTMLElement
 		 */
@@ -83,14 +345,18 @@ package org.apache.royale.jewel.beads.layouts
 				var maxHeight:Number = 0;
 				var hostWidthSizedToContent:Boolean = host.isWidthSizedToContent();
 				var hostHeightSizedToContent:Boolean = host.isHeightSizedToContent();
-				var hostWidth:Number = host.width;
-				var hostHeight:Number = host.height;
+				var hostWidth:Number = hostWidthSizedToContent ? 0 : contentView.width;
+				var hostHeight:Number = hostHeightSizedToContent ? 0 : contentView.height;
 
 				var ilc:ILayoutChild;
 				var data:Object;
 				var canAdjust:Boolean = false;
 
-				var paddingMetrics:EdgeData = (ValuesManager.valuesImpl as IBorderPaddingMarginValuesImpl).getPaddingMetrics(host);
+				var paddingMetrics:EdgeData = new EdgeData();
+                paddingMetrics.left = _paddingLeft;
+                paddingMetrics.top  = _paddingTop;
+                paddingMetrics.right = _paddingRight;
+                paddingMetrics.bottom = _paddingBottom;
 				var borderMetrics:EdgeData = (ValuesManager.valuesImpl as IBorderPaddingMarginValuesImpl).getBorderMetrics(host);
 				
 				// adjust the host's usable size by the metrics. If hostSizedToContent, then the
@@ -107,32 +373,28 @@ package org.apache.royale.jewel.beads.layouts
 					var child:IUIBase = contentView.getElementAt(i) as IUIBase;
 					if (child == null || !child.visible) continue;
 					var positions:Object = childPositions(child);
-					var margins:Object = childMargins(child, hostWidth, hostHeight);
 
 					ilc = child as ILayoutChild;
 
-					ypos += margins.top;
+					var childXpos:Number = xpos; // default x position
 
-					var childXpos:Number = xpos + margins.left; // default x position
+					if (!hostWidthSizedToContent) {
+						var childWidth:Number = child.width;
+						if (ilc != null && !isNaN(ilc.percentWidth)) {
+							childWidth = hostWidth * ilc.percentWidth/100.0;
+							ilc.setWidth(childWidth);
+						}
+						// the following code center-aligns the child, but since HTML does not
+						// do this normally, this code is commented. (Use VerticalFlexLayout for
+						// horizontally centered elements in a vertical column).
+						//					childXpos = hostWidth/2 - (childWidth + ml + mr)/2;
+					}
 
-					var childWidth:Number = child.width;
-					if (ilc != null && !isNaN(ilc.percentWidth)) {
-						childWidth = hostWidth * ilc.percentWidth/100.0;
-						ilc.setWidth(childWidth);
-					}
-					else if (ilc.isWidthSizedToContent() && !margins.auto)
-					{
-						childWidth = hostWidth;
-						ilc.setWidth(childWidth);
-					}
-					if (margins.auto)
-						childXpos = (hostWidth - childWidth) / 2;
-						
 					if (ilc) {
 						ilc.setX(childXpos);
 						ilc.setY(ypos);
 
-						if (!isNaN(ilc.percentHeight)) {
+						if (!hostHeightSizedToContent && !isNaN(ilc.percentHeight)) {
 							var newHeight:Number = hostHeight * ilc.percentHeight / 100;
 							ilc.setHeight(newHeight);
 						}
@@ -142,37 +404,48 @@ package org.apache.royale.jewel.beads.layouts
 						child.y = ypos;
 					}
 
-					ypos += child.height + margins.bottom;
+					ypos += child.height + _gap;
 				}
 
 				return true;
 			}
 			COMPILE::JS
 			{
-				var contentView:IParentIUIBase = layoutView as IParentIUIBase;
-				addStyles (contentView, "layout vertical");
-				
-				var children:Array = contentView.internalChildren();
-				var i:int;
-				var n:int = children.length;
-				for (i = 0; i < n; i++)
-				{
-					var child:WrappedHTMLElement = children[i] as WrappedHTMLElement;
-					if (child == null) continue;
-					
-					child.royale_wrapper.dispatchEvent('sizeChanged');
-				}
+				// var contentView:IParentIUIBase = layoutView as IParentIUIBase;
+				// var c:UIBase = (contentView as UIBase);
+				// c.element.classList.add("layout");
+				// c.element.classList.add("vertical");
 
-				/**
-				 * This Layout uses the following CSS rules
-				 * 
-				 * .layout.vertical {
-				 *	vertical-align: top;
-				 *	}
-				 *	.layout.vertical > * {
-				 *	display: block !important;
-				 *	}
-				 */
+				//applyStyleToLayout(c, "gap");
+				
+				// var children:Array = contentView.internalChildren();
+				// var i:int;
+				// var n:int = children.length;
+				// for (i = 0; i < n; i++)
+				// {
+				// 	var child:WrappedHTMLElement = children[i];
+
+				// 	if(i == 0)
+				// 	{
+				// 		child.style.marginTop = _paddingTop + 'px';
+				// 	}
+				// 	else
+				// 	{
+				// 		child.style.marginTop = _gap + 'px';
+				// 	}
+				// 	child.style.marginRight = _paddingRight + 'px';
+				// 	if(i === (n - 1))
+				// 	{
+				// 		child.style.marginBottom = _paddingBottom + 'px';
+				// 	}
+				// 	else
+				// 	{
+				// 		child.style.marginBottom = '0px';
+				// 	}
+				// 	child.style.marginLeft = _paddingLeft + 'px';
+					
+				// 	child.royale_wrapper.dispatchEvent('sizeChanged');
+				// }
 
 				return true;
 			}

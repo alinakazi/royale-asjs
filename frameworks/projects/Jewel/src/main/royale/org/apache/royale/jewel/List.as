@@ -20,8 +20,10 @@ package org.apache.royale.jewel
 {
 	import org.apache.royale.core.IRollOverModel;
 	import org.apache.royale.core.ISelectionModel;
-    import org.apache.royale.html.DataContainer;
-    
+    import org.apache.royale.core.DataContainerBase;
+	import org.apache.royale.core.IDataProviderModel;
+	import org.apache.royale.core.IListPresentationModel;
+	import org.apache.royale.jewel.beads.models.ListPresentationModel;
 
 	COMPILE::JS
 	{
@@ -66,7 +68,7 @@ package org.apache.royale.jewel
 	 *  @playerversion AIR 2.6
 	 *  @productversion Royale 0.9.3
 	 */
-	public class List extends DataContainer
+	public class List extends DataContainerBase
 	{
 		/**
 		 *  constructor.
@@ -83,13 +85,56 @@ package org.apache.royale.jewel
 		}
 
 		/**
+		 *  The name of field within the data used for display. Each item of the
+		 *  data should have a property with this name.
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 *  @royaleignorecoercion org.apache.royale.core.IDataProviderModel
+		 */
+		public function get labelField():String
+		{
+			return IDataProviderModel(model).labelField;
+		}
+		/**
+		 * @royaleignorecoercion org.apache.royale.core.IDataProviderModel
+		 */
+		public function set labelField(value:String):void
+		{
+            IDataProviderModel(model).labelField = value;
+		}
+
+		/**
+		 *  The data being display by the List.
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 *  @royaleignorecoercion org.apache.royale.core.IDataProviderModel
+		 */
+        public function get dataProvider():Object
+        {
+            return IDataProviderModel(model).dataProvider;
+        }
+		/**
+		 * @royaleignorecoercion org.apache.royale.core.IDataProviderModel
+		 */
+        public function set dataProvider(value:Object):void
+        {
+            IDataProviderModel(model).dataProvider = value;
+        }
+
+		/**
 		 *  The index of the currently selected item. Changing this value
 		 *  also changes the selectedItem property.
 		 *
 		 *  @langversion 3.0
 		 *  @playerversion Flash 10.2
 		 *  @playerversion AIR 2.6
-		 *  @productversion Royale 0.9
+		 *  @productversion Royale 0.9.3
 		 *  @royaleignorecoercion org.apache.royale.core.ISelectionModel
 		 */
 		[Bindable("change")]
@@ -111,7 +156,7 @@ package org.apache.royale.jewel
 		 *  @langversion 3.0
 		 *  @playerversion Flash 10.2
 		 *  @playerversion AIR 2.6
-		 *  @productversion Royale 0.9
+		 *  @productversion Royale 0.9.3
 		 *  @royaleignorecoercion org.apache.royale.core.IRollOverModel
 		 */
         public function get rollOverIndex():int
@@ -150,7 +195,7 @@ package org.apache.royale.jewel
 		 *  @langversion 3.0
 		 *  @playerversion Flash 10.2
 		 *  @playerversion AIR 2.6
-		 *  @productversion Royale 0.9
+		 *  @productversion Royale 0.9.3
 		 *  @royaleignorecoercion org.apache.royale.core.ISelectionModel
 		 */
 		[Bindable("change")]
@@ -166,5 +211,23 @@ package org.apache.royale.jewel
 			ISelectionModel(model).selectedItem = value;
 		}
 
+		/**
+		 *  The presentation model for the list.
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.6
+		 *  @productversion Royale 0.9.3
+		 *  @royaleignorecoercion org.apache.royale.core.IListPresentationModel
+		 */
+		public function get presentationModel():IListPresentationModel
+		{
+			var presModel:IListPresentationModel = getBeadByType(IListPresentationModel) as IListPresentationModel;
+			if (presModel == null) {
+				presModel = new ListPresentationModel();
+				addBead(presModel);
+			}
+			return presModel;
+		}
    	}
 }

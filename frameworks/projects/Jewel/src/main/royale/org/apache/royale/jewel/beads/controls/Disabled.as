@@ -82,8 +82,6 @@ package org.apache.royale.jewel.beads.controls
 		public function set strand(value:IStrand):void
 		{
 			_strand = value;
-			
-			var host:UIBase = value as UIBase;
 
 			COMPILE::JS
 			{

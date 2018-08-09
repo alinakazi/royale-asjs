@@ -19,11 +19,9 @@
 -->
 <j:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
                xmlns:j="library://ns.apache.org/royale/jewel"
-               xmlns:html="library://ns.apache.org/royale/html"
-               xmlns:js="library://ns.apache.org/royale/basic">
+               xmlns:js="library://ns.apache.org/royale/basic"
+               xmlns:html="library://ns.apache.org/royale/html">
     
-    <fx:Style source="../../main/resources/styles.css"/>
-
     <fx:Script>
 		<![CDATA[
             private function changeHandler(event:Event):void {
@@ -36,12 +34,12 @@
 		]]>
 	</fx:Script>
 
-    <js:initialView>
-        <js:View>
-
-            <js:beads>
-                <j:VerticalLayoutWithPaddingAndGap gap="10"/>
-            </js:beads>
+    <j:initialView>
+        <j:View>
+            <j:beads>
+                <j:VerticalLayout gap="3"/>
+            </j:beads>
+            
             <html:H3 text="Avengers Character List"/>
 	
             <j:List id="list" width="200" height="300" change="changeHandler(event)">
@@ -52,8 +50,8 @@
 
             <j:Label id="selected"/>
 
-            <j:TextButton width="200" primary="true" text="who is missing?" click="clickHandler(event)"/>
-        </js:View>
-    </js:initialView>
+            <j:Button width="200" emphasis ="primary" text="who is missing?" click="clickHandler(event)"/>
+        </j:View>
+    </j:initialView>
 
 </j:Application>

@@ -21,10 +21,10 @@
 
 // Alert variables
 $alert-padding: 20px
-$alert-min-width: 420px
+$alert-min-width: 320px
 $alert-min-height: 240px
 $alert-header-height: 50px
-$alert-footer-height: 80px
+$alert-footer-height: 84px
 $alert-border-radius: 3px
 
 $alert-title-font-size: 1.9em
@@ -32,7 +32,7 @@ $alert-title-font-weight: bold
 $alert-title-color: darken($default-font-color, 15%)
 
 $alert-label-font-size: 1.1em
-$alert-label-font-weight: normal
+$alert-label-font-weight: $font-weight-normal
 $alert-label-color: $default-font-color
 
 $alert-control-bar-align: 'left'
@@ -40,18 +40,17 @@ $alert-control-bar-align: 'left'
 $alert-modal-opacity: .5
 
 .jewel.alert
-    display: block
-    position: fixed
+    // position: fixed
 
-    top: 50%
-    left: 50%
-    transform: translate(-50%, -50%)
+    // top: 50%
+    // left: 50%
+    // transform: translate(-50%, -50%)
     
     margin: 0
     padding: 0
     
-    max-width: 100%
-    max-height: 100%
+    //max-width: 100%
+    //max-height: 100%
 
     min-width: $alert-min-width
     min-height: $alert-min-height
@@ -71,13 +70,13 @@ $alert-modal-opacity: .5
                 size: $alert-title-font-size
                 weight: $alert-title-font-weight
           
-    .Group
-        position: absolute
+    .content
+        // position: absolute
         padding: $alert-padding
         top: $alert-header-height
         bottom: $alert-footer-height
-        width: 100%
-        overflow-y: auto
+        // width: 100%
+        // overflow-y: auto
 
         .jewel.label
             white-space: normal
@@ -102,24 +101,5 @@ $alert-modal-opacity: .5
         width: 100%
         height: $alert-footer-height
         
-        display: flex
-        justify-content: flex-end
-        
-        > *:first-child
-            margin-left: 0px
-        > *
-            flex: 0 0 100px
-            margin-left: 6px
-        
     + .backdrop
         background-color: rgba(0, 0, 0, $alert-modal-opacity)
-
-j|Alert
-    IBeadModel: ClassReference("org.apache.royale.html.beads.models.AlertModel")
-    IBeadController: ClassReference("org.apache.royale.jewel.beads.controllers.AlertController")
-    IBeadView:  ClassReference("org.apache.royale.jewel.beads.views.AlertView")
-
-@media -royale-swf	
-    j|Alert
-        IBackgroundBead: ClassReference("org.apache.royale.html.beads.SolidBackgroundBead")
-        IBorderBead: ClassReference("org.apache.royale.html.beads.SingleLineBorderBead")

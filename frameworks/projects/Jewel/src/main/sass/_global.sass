@@ -18,20 +18,94 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 @namespace j "library://ns.apache.org/royale/jewel"
+@namespace "http://www.w3.org/1999/xhtml"
 
-.layout.horizontal
-	white-space: nowrap
-	display: block
-	> *
-		display: inline-block
-.layout.vertical
-	vertical-align: top
-	> *
-		display: block !important
+//j|Application *, .royale *, .royale *:before, .royale *:after
+* , :after, :before
+	box-sizing: border-box
 
-.layout.horizontal.space
-	display: flex
-	justify-content: space-between
-	align-items: flex-start
+html, body
+	height: 100%
 
+// Firefox
+// remove dotted outline
+::-moz-focus-inner, ::-moz-focus-outer
+	border: 0
 
+button::-moz-focus-inner
+	padding: 0
+	
+button, input, textarea
+	font-size: 100%
+
+j|View
+	IBeadView: ClassReference("org.apache.royale.html.beads.GroupView")
+	IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.BasicLayout")
+
+j|ApplicationResponsiveView
+	IBeadView: ClassReference("org.apache.royale.html.beads.GroupView")
+	//IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.BasicLayout")
+
+.applicationResponsiveView
+	display: inline-flex
+	width: 100%
+	min-height: 100% // can't have 100% height without prevents app scrolling
+
+j|ApplicationView
+	IBeadView: ClassReference("org.apache.royale.html.beads.GroupView")
+	IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.VerticalLayout")
+	// IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.BasicLayout")
+
+// .responsive
+// 	width: 100%
+// 	height: 100%
+// 	display: flex
+// 	flex-direction: column
+// 	overflow-y: auto
+// 	overflow-x: hidden
+// 	position: relative
+// 	-webkit-overflow-scrolling: touch
+
+j|Group
+	IBeadView: ClassReference("org.apache.royale.html.beads.GroupView")
+
+j|HGroup
+	IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.HorizontalLayout")
+
+j|VGroup
+	IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.VerticalLayout")
+
+j|Container
+	IBeadView: ClassReference("org.apache.royale.html.beads.ContainerView")
+	//IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.BasicLayout")
+	IViewport: ClassReference("org.apache.royale.html.supportClasses.Viewport")
+	IViewportModel: ClassReference("org.apache.royale.html.beads.models.ViewportModel")
+	//align-items: flex-start
+
+j|Image
+	IBeadModel: ClassReference("org.apache.royale.jewel.beads.models.ImageModel")
+	IBeadView:  ClassReference("org.apache.royale.jewel.beads.views.ImageView")
+//vertical-align: top
+
+//j|Grid
+//	IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.GridLayout")
+
+j|DataContainer
+	IBeadModel: ClassReference("org.apache.royale.jewel.beads.models.DataProviderModel")
+	IBeadView:  ClassReference("org.apache.royale.html.beads.DataContainerView")		
+	IBeadLayout: ClassReference("org.apache.royale.jewel.beads.layouts.VerticalLayout")
+	IDataProviderItemRendererMapper: ClassReference("org.apache.royale.jewel.beads.itemRenderers.DataItemRendererFactoryForArrayData")
+	IItemRendererClassFactory: ClassReference("org.apache.royale.core.ItemRendererClassFactory")
+	IItemRenderer: ClassReference("org.apache.royale.jewel.itemRenderers.StringItemRenderer")
+	IViewport: ClassReference("org.apache.royale.html.supportClasses.Viewport")
+	IViewportModel: ClassReference("org.apache.royale.html.beads.models.ViewportModel")
+
+@media -royale-swf
+	j|View
+		// --- IBackgroundBead: ClassReference("org.apache.royale.html.beads.SolidBackgroundBead")
+		// --- IBorderBead: ClassReference("org.apache.royale.html.beads.SingleLineBorderBead")
+
+	j|Container
+		// --- IBackgroundBead: ClassReference("org.apache.royale.html.beads.SolidBackgroundBead")
+		// --- IBorderBead: ClassReference("org.apache.royale.html.beads.SingleLineBorderBead")
+		IContentView: ClassReference("org.apache.royale.html.supportClasses.ContainerContentArea")

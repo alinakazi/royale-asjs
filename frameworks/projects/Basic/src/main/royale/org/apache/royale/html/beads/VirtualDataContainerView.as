@@ -18,6 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package org.apache.royale.html.beads
 {	
+	import org.apache.royale.html.beads.ContainerView;
 	import org.apache.royale.core.BeadViewBase;
 	import org.apache.royale.core.ContainerBase;
 	import org.apache.royale.core.IBead;
@@ -42,6 +43,7 @@ package org.apache.royale.html.beads
 	import org.apache.royale.events.IEventDispatcher;
 	import org.apache.royale.html.supportClasses.Border;
 	import org.apache.royale.html.supportClasses.DataGroup;
+	import org.apache.royale.html.beads.IListView;
 
 	/**
 	 *  The DataContainerView provides the visual elements for the DataContainer.

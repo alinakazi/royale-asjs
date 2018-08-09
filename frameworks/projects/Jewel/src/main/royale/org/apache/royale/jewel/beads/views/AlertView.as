@@ -18,11 +18,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 package org.apache.royale.jewel.beads.views
 {
+    import org.apache.royale.html.beads.GroupView;
     import org.apache.royale.core.IAlertModel;
     import org.apache.royale.core.IBead;
     import org.apache.royale.core.IBorderPaddingMarginValuesImpl;
     import org.apache.royale.core.IParent;
     import org.apache.royale.core.IStrand;
+    import org.apache.royale.core.IBeadLayout;
     import org.apache.royale.core.IUIBase;
     import org.apache.royale.core.UIBase;
     import org.apache.royale.core.layout.EdgeData;
@@ -30,16 +32,15 @@ package org.apache.royale.jewel.beads.views
     import org.apache.royale.events.Event;
     import org.apache.royale.events.IEventDispatcher;
     import org.apache.royale.events.MouseEvent;
-    import org.apache.royale.html.Group;
-    import org.apache.royale.html.beads.GroupView;
+    import org.apache.royale.jewel.Group;
     import org.apache.royale.jewel.Alert;
     import org.apache.royale.jewel.Label;
-    import org.apache.royale.jewel.TextButton;
+    import org.apache.royale.jewel.Button;
     import org.apache.royale.jewel.TitleBar;
     import org.apache.royale.jewel.ControlBar;
-	import org.apache.royale.jewel.beads.layouts.HorizontalLayoutSpaceBetween;
 	import org.apache.royale.jewel.beads.views.AlertTitleBarView;
-	
+	import org.apache.royale.jewel.beads.layouts.HorizontalLayout;
+
     COMPILE::SWF
 	{
         import org.apache.royale.html.beads.IBackgroundBead;
@@ -75,15 +76,45 @@ package org.apache.royale.jewel.beads.views
 
         protected var alertModel:IAlertModel;
 		
-		protected var titleBar:TitleBar;
-		protected var content:Group;
-		protected var label:Label;
-		protected var controlBar:UIBase;
+		/**
+		 * @royalesuppresspublicvarwarning
+		 */
+		public var titleBar:TitleBar;
 
-        protected var okButton:TextButton;
-        protected var cancelButton:TextButton;
-        protected var yesButton:TextButton;
-        protected var noButton:TextButton;
+		/**
+		 * @royalesuppresspublicvarwarning
+		 */
+		public var content:Group;
+
+		/**
+		 * @royalesuppresspublicvarwarning
+		 */
+		public var label:Label;
+
+		/**
+		 * @royalesuppresspublicvarwarning
+		 */
+		public var controlBar:UIBase;
+
+		/**
+		 * @royalesuppresspublicvarwarning
+		 */
+        public var okButton:Button;
+
+		/**
+		 * @royalesuppresspublicvarwarning
+		 */
+        public var cancelButton:Button;
+
+		/**
+		 * @royalesuppresspublicvarwarning
+		 */
+        public var yesButton:Button;
+
+		/**
+		 * @royalesuppresspublicvarwarning
+		 */
+        public var noButton:Button;
 
 		/**
 		 *  @copy org.apache.royale.core.IBead#strand
@@ -126,14 +157,15 @@ package org.apache.royale.jewel.beads.views
 
 			// TitleBar
 			titleBar = new TitleBar();
-			titleBar.addBead(new HorizontalLayoutSpaceBetween());
 			titleBar.addBead(new AlertTitleBarView());
 			titleBar.title = alertModel.title;
 			IParent(_strand).addElement(titleBar);
-            
+
 			// Text
 			content = new Group();
+			content.typeNames = "content";
 			label = new Label();
+			label.multiline = true;
 			label.text = alertModel.message;
 			content.addElement(label);
 			IParent(_strand).addElement(content);
@@ -141,6 +173,10 @@ package org.apache.royale.jewel.beads.views
 			// ControlBar
 			createButtons();
 			IParent(_strand).addElement(controlBar);
+
+			var layout:HorizontalLayout = controlBar.getBeadByType(IBeadLayout) as HorizontalLayout;
+			layout.itemsHorizontalAlign = "itemsRight";
+			layout.gap = 2;
 
 			COMPILE::SWF
             {
@@ -158,15 +194,20 @@ package org.apache.royale.jewel.beads.views
 			COMPILE::JS
 			{
 				controlBar = new ControlBar();
-				//controlBar.addBead(new HorizontalLayoutSpaceBetween());
+				
+				// var controlBarLayout:HorizontalLayout = new HorizontalLayout();
+				// controlBar.addBead(controlBarLayout);
+				// trace(controlBarLayout.hostComponent);
+				// controlBarLayout.itemsHorizontalAlign = "itemsSpaceBetween";
 			}
 
             var flags:uint = alertModel.flags;
 
             if( flags & Alert.OK )
             {
-                okButton = new TextButton();
-				okButton.primary = true;
+                okButton = new Button();
+				okButton.width = 100;
+				okButton.emphasis = "primary";
                 okButton.text = alertModel.okLabel;
                 okButton.addEventListener("click", handleOK);
 
@@ -175,7 +216,8 @@ package org.apache.royale.jewel.beads.views
 
 			if( flags & Alert.CANCEL )
             {
-                cancelButton = new TextButton();
+                cancelButton = new Button();
+				cancelButton.width = 100;
                 cancelButton.text = alertModel.cancelLabel;
                 cancelButton.addEventListener("click", handleCancel);
 
@@ -184,8 +226,9 @@ package org.apache.royale.jewel.beads.views
             
             if( flags & Alert.YES )
             {
-                yesButton = new TextButton();
-				yesButton.primary = true;
+                yesButton = new Button();
+				yesButton.width = 100;
+				yesButton.emphasis = "primary";
                 yesButton.text = alertModel.yesLabel;
                 yesButton.addEventListener("click", handleYes);
 
@@ -194,7 +237,8 @@ package org.apache.royale.jewel.beads.views
 
 			if( flags & Alert.NO )
             {
-                noButton = new TextButton();
+                noButton = new Button();
+				noButton.width = 100;
                 noButton.text = alertModel.noLabel;
                 noButton.addEventListener("click", handleNo);
 

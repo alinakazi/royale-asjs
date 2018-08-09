@@ -23,7 +23,7 @@ limitations under the License.
 				  
     <fx:Script>
         <![CDATA[
-            import org.apache.royale.html.beads.models.TextModel;
+            import org.apache.royale.jewel.beads.models.TextModel;
 
             // private function clickHandler():void
             // {
@@ -38,7 +38,7 @@ limitations under the License.
         <js:MXMLBeadViewDataBinding />
     </js:beads>
 
-    <j:TextButton id="textButton" text="JewelLabelViewBead" primary="true"/>
+    <j:Button id="textButton" text="JewelLabelViewBead" emphasis="primary"/>
     
 <!--
     

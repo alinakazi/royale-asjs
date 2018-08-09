@@ -18,11 +18,8 @@
 
 -->
 <j:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
-               xmlns:j="library://ns.apache.org/royale/jewel"
-               xmlns:js="library://ns.apache.org/royale/basic">
+               xmlns:j="library://ns.apache.org/royale/jewel">
     
-    <fx:Style source="../../main/resources/styles.css"/>
-
     <fx:Script>
 		<![CDATA[
 		
@@ -41,11 +38,11 @@
     	]]>
 	</fx:Script>
 
-    <js:initialView>
-        <js:View>
-            <js:beads>
-                <j:VerticalLayoutWithPaddingAndGap gap="10"/>
-            </js:beads>
+    <j:initialView>
+        <j:View>
+            <j:beads>
+                <j:VerticalLayout gap="3"/>
+            </j:beads>
 
             <j:Slider id="slider_w" width="250" value="250" minimum="100" maximum="500"
                 valueChange="onValueChange(event)"/>
@@ -53,9 +50,9 @@
             <j:Slider id="slider_h" width="250" value="80" minimum="40" maximum="300"
                 valueChange="onValueChange(event)"/>
 
-            <j:TextButton id="button" text="Slider to 400x200" width="250" height="80" secondary="true"
+            <j:Button id="button" text="Slider to 400x200" width="250" height="80" emphasis="secondary"
                 click="clickHandler(event)"/>
-        </js:View>
-    </js:initialView>
+        </j:View>
+    </j:initialView>
     
 </j:Application>

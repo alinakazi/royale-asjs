@@ -26,15 +26,6 @@
 	box-sizing: border-box;
 }
 
-.unselectable
-{
-	-moz-user-select: -moz-none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	-o-user-select: none;
-	user-select: none;
-}
-
 Alert
 {
 	IBeadLayout: ClassReference("org.apache.royale.html.beads.layouts.VerticalFlexLayout");
@@ -94,11 +85,6 @@ ComboBoxList
 	background-color: #FFFFFF;
 }
 
-.opt_org-apache-royale-html-ComboBox_Button {
-	padding: 0px;
-	margin: 0px;
-}
-
 Container
 {
 	IBeadView: ClassReference("org.apache.royale.html.beads.ContainerView");
@@ -139,6 +125,7 @@ DataGrid
 	IBeadView: ClassReference("org.apache.royale.html.beads.DataGridView");
 	IBeadModel: ClassReference("org.apache.royale.html.beads.models.DataGridModel");
 	IBeadLayout: ClassReference("org.apache.royale.html.beads.layouts.DataGridLayout");
+	ColumnClass: ClassReference("org.apache.royale.html.supportClasses.DataGridColumnList");
 	
 	background-color: #FFFFFF;
 	border: 1px solid #222222;
@@ -176,7 +163,7 @@ DataGridColumnList {
 	background-color: #FFFFFF;
 }
 
-.opt_org-apache-royale-html-DataGrid_ListArea {
+DataGridListArea {
 	background-color: #FFFFFF;
 	IBeadLayout: ClassReference("org.apache.royale.html.beads.layouts.HorizontalLayout");
 	IViewport: ClassReference("org.apache.royale.html.supportClasses.ScrollingViewport");
@@ -184,19 +171,19 @@ DataGridColumnList {
 	flex-grow: 1;
 }
 
-.DynamicDataGrid {
+DynamicDataGrid {
 	IChangePropagator: ClassReference("org.apache.royale.html.beads.DataGridColumnChangePropagator");
 	IDataGridPresentationModel: ClassReference("org.apache.royale.html.beads.models.DataGridPresentationModel");
 	IBeadView: ClassReference("org.apache.royale.html.beads.DataGridView");
 	IBeadModel: ClassReference("org.apache.royale.html.beads.models.DataGridCollectionViewModel");
 	IBeadLayout: ClassReference("org.apache.royale.html.beads.layouts.DataGridLayout");
-	ColumnClassName: "DynamicDataGridColumnList";
+	ColumnClass: ClassReference("org.apache.royale.html.supportClasses.DynamicDataGridColumnList");
 	
 	background-color: #FFFFFF;
 	border: 1px solid #222222;
 }
 
-.DynamicDataGridColumnList {
+DynamicDataGridColumnList {
 	IBeadModel: ClassReference("org.apache.royale.html.beads.models.DataGridCollectionViewModel");
 	IBeadView:  ClassReference("org.apache.royale.html.beads.ListView");			
 	IBeadController: ClassReference("org.apache.royale.html.beads.controllers.ListSingleSelectionMouseController");
@@ -240,9 +227,9 @@ DateChooserHeader {
 	background-color: #FFFFFF;
 }
 
-.opt_org-apache-royale-html-DateChooser_MonthButtons {				
-	IBeadLayout: ClassReference("org.apache.royale.html.beads.layouts.HorizontalFlexLayout");	
-	height: 20px;
+DataItemRenderer
+{
+	IBeadController: ClassReference("org.apache.royale.html.beads.controllers.ItemRendererMouseController");
 }
 
 DateItemRenderer
@@ -392,7 +379,7 @@ List
 	IViewportModel: ClassReference("org.apache.royale.html.beads.models.ViewportModel");
 }
 
-.DynamicList
+DynamicList
 {
 	IBeadModel: ClassReference("org.apache.royale.html.beads.models.SingleSelectionCollectionViewModel");
 	IBeadView:  ClassReference("org.apache.royale.html.beads.ListView");			
@@ -524,11 +511,7 @@ TreeGrid
 	border: 1px solid #222222;
 }
 
-TreeGrid .TreeGridColumn {
-	border: none
-}
-
-.opt_org-apache-royale-html-TreeGrid_ListArea {
+TreeGridListArea {
 	background-color: #FFFFFF;
 	IBeadLayout: ClassReference("org.apache.royale.html.beads.layouts.BasicLayout");
 	IViewport: ClassReference("org.apache.royale.html.supportClasses.ScrollingViewport");
@@ -566,16 +549,6 @@ PanelWithControlBar
 	border: 1px solid #333333;
 }
 
-Panel .TitleBar
-{
-	border-bottom: 1px solid #333333;
-}
-
-.PanelContent
-{
-	background-color: #FFFFFF;
-}
-
 PopUpList
 {
 	position: absolute;
@@ -603,12 +576,6 @@ Slider
 	IBeadController: ClassReference("org.apache.royale.html.beads.controllers.HSliderMouseController");
 	position: relative;
 }
-.SliderTrack {
-	position: absolute;
-}
-.SliderThumb {
-	position: absolute;
-}
 
 Spinner
 {
@@ -618,14 +585,14 @@ Spinner
 	height: 32px;
 }
 
-.SpinnerButton
+SpinnerButton
 {
 	padding: 0;
 	margin: 0;
 	font-size: 6px;
 }
 
-.SpinnerButton:hover
+SpinnerButton:hover
 {
 	padding: 0;
 	margin: 0;
@@ -709,46 +676,6 @@ TitleBar
 	height: 30px;
 	flex-grow: 0;
 	min-height: 30px;
-}
-
-TitleBar .TitleBarCloseButton {
-	width: 16px;
-	height: 16px;
-	margin: 0px;
-}
-
-TitleBar .TitleBarTitle {
-	font-weight: bold;
-	padding: 0;
-	margin: 0;
-}
-
-.toggleTextButton
-{
-	background-color: #f8f8f8;
-	border: 1px solid #808080;
-	padding: 4px;
-}
-
-.toggleTextButton:hover
-{
-	background-color: #e8e8e8;
-	border: 1px solid #808080;
-	padding: 4px;
-}
-
-.toggleTextButton_Selected
-{
-	background-color: #d8d8d8;
-	border: 1px solid #808080;
-	padding: 4px;
-}
-
-.toggleTextButton_Selected:hover
-{
-	background-color: #e8e8e8;
-	border: 1px solid #808080;
-	padding: 4px;
 }
 
 ToolTip

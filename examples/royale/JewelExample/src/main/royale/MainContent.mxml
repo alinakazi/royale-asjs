@@ -17,48 +17,114 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<js:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
-		  xmlns:js="library://ns.apache.org/royale/basic"
-		  xmlns:j="library://ns.apache.org/royale/jewel"
-          xmlns:local="*">
+<j:ApplicationResponsiveView xmlns:fx="http://ns.adobe.com/mxml/2009"
+                            xmlns:j="library://ns.apache.org/royale/jewel"
+                            xmlns:js="library://ns.apache.org/royale/basic"
+                            xmlns:html="library://ns.apache.org/royale/html"
+                            xmlns:models="models.*"
+                            xmlns:local="*">
     
-    <js:beads>
-        <j:HorizontalLayoutWithPaddingAndGap gap="10"/>
-    </js:beads>
+    <fx:Script>
+        <![CDATA[
+            import vos.NavigationLinkVO;
+            
+            private function changeHandler(event:Event):void
+            {
+                var item:NavigationLinkVO = (event.target as Navigation).selectedItem as NavigationLinkVO;
+                main.showContent(item.href);
+                if(!drawer.fixed)
+                    drawer.close();
+            }
 
-    <js:Group>
-        <js:beads>
-            <j:VerticalLayoutWithPaddingAndGap gap="10"/>
-        </js:beads>
-        <local:LabelPlayGround/>
-        <local:ButtonPlayGround/>
-        <local:TextButtonPlayGround/>
-        <local:DropDownListPlayGround/>
-    </js:Group>
+            private function toggleTopAppBarFixed():void
+            {
+                topappbar.fixed = !topappbar.fixed;
+                main.hasTopAppBar = topappbar.fixed;
+            }
+        ]]>
+    </fx:Script>
 
-    <js:Group>
-        <js:beads>
-            <j:VerticalLayoutWithPaddingAndGap gap="10"/>
-        </js:beads>
-        <local:TextInputPlayGround/>
-        <local:CheckBoxPlayGround/>
-        <local:RadioButtonPlayGround/>
-    </js:Group>
+    <j:model>
+        <models:MainNavigationModel id="mainNavigationModel"/>
+    </j:model>
 
-    <js:Group>
-        <js:beads>
-            <j:VerticalLayoutWithPaddingAndGap gap="10"/>
-        </js:beads>
-        <local:SliderPlayGround/>
-        <local:ListPlayGround/>
-    </js:Group>
+    <j:beads>
+		<js:ContainerDataBinding/>
+	</j:beads>
+
+    <j:Drawer id="drawer">
+        <j:beads>
+            <j:ResponsiveDrawer auto="true"/>
+        </j:beads>
+        <j:DrawerHeader>
+            <j:Image src="assets/apache-royale-jewel-logo-white.svg" height="140"/>
+        </j:DrawerHeader>
+        <j:DrawerContent>
+            <j:Navigation change="changeHandler(event)" className="navIconLinkItemRenderer">
+                <j:beads>
+                    <js:ConstantBinding
+                        sourceID="mainNavigationModel"
+                        sourcePropertyName="containerDrawerNavigation"
+                        destinationPropertyName="dataProvider"/>
+                </j:beads>
+            </j:Navigation>
+            <j:Divider/>
+            <j:Navigation change="changeHandler(event)" className="navIconLinkItemRenderer">
+                <j:beads>
+                    <js:ConstantBinding
+                        sourceID="mainNavigationModel"
+                        sourcePropertyName="controlsDrawerNavigation"
+                        destinationPropertyName="dataProvider"/>
+                </j:beads>
+            </j:Navigation>
+        </j:DrawerContent>
+    </j:Drawer>
+
+    <j:TopAppBar id="topappbar" fixed="true" hasDrawer="{drawer.fixed &amp;&amp; drawer.isOpen}">
+        <j:TopAppBarRow>
+            <j:TopAppBarSection>
+                <j:IconButton click="drawer.isOpen ? drawer.close() : drawer.open()">
+                    <js:beads>
+                        <j:ResponsiveVisibility desktopVisible="false" wideScreenVisible="false"/>
+                    </js:beads>
+                    <j:icon>
+                        <js:FontIcon text="{MaterialIconType.MENU}" material="true"/>
+                    </j:icon>
+                </j:IconButton>
+                <j:TopAppBarTitle text="Apache Royale Jewel UI Set Theme Showcase"/>
+            </j:TopAppBarSection>
+            <j:TopAppBarSection alignRight="true">
+                <j:IconButton click="drawer.fixed = !drawer.fixed">
+                    <j:icon>
+                        <js:FontIcon text="{MaterialIconType.VISIBILITY}" material="true"/>
+                    </j:icon>
+                </j:IconButton>
+                <j:ToggleButton click="toggleTopAppBarFixed()">
+                    <j:icon>
+                        <js:ToggleFontIcon text="{MaterialIconType.LOCK}" selectedText="{MaterialIconType.LOCK_OPEN}" material="true"/>
+                    </j:icon>
+                </j:ToggleButton>
+            </j:TopAppBarSection>
+        </j:TopAppBarRow>
+    </j:TopAppBar>
+
+    <j:ApplicationMainContent id="main" hasTopAppBar="true" className="mainContent">
+        <local:WelcomeSection isActive="true"/>
+        <local:AlertPlayGround id="alert_panel"/>
+        <local:ButtonPlayGround id="button_panel"/>
+        <local:DateComponentsPlayGround id="datecomponents_panel"/>
+        <local:DropDownListPlayGround id="dropdownlist_panel"/>
+        <local:CheckBoxPlayGround id="checkbox_panel"/>
+        <local:MiscelaneaPlayGound id="miscelanea_panel"/>
+        <local:HeadingsAndText id="text_panel"/>
+        <local:LabelPlayGround id="label_panel"/>
+        <local:ListPlayGround id="list_panel"/>
+        <local:RadioButtonPlayGround id="radiobutton_panel"/>
+        <local:SliderPlayGround id="slider_panel"/>
+        <local:TextInputPlayGround id="textinput_panel"/>
+        <local:GridPlayGround id="grid_panel"/>
+        <local:CardPlayGround id="card_panel"/>
+        <local:TablePlayGround id="tables_panel"/>
+    </j:ApplicationMainContent>
     
-    <js:Group>
-        <js:beads>
-            <j:VerticalLayoutWithPaddingAndGap gap="10"/>
-        </js:beads>
-        <local:AlertPlayGround/>
-        <local:HeadingsAndText/>
-    </js:Group>
-    
-</js:Group>
+</j:ApplicationResponsiveView>

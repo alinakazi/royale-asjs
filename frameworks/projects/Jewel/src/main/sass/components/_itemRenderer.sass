@@ -20,7 +20,23 @@
 // Jewel ListItemRenderer
 
 // ListItemRenderer variables
+$item-min-height: 34px
 
+.jewel.item, .jewel.navigationlink
+    display: flex
+    cursor: pointer
+    min-height: $item-min-height
+    text-decoration: none
+    align-items: center
+    letter-spacing: 0
+    line-height: normal !important
+    overflow: hidden
 
+.jewel.navigationlink
+    min-height: 48px
+    
 j|ListItemRenderer
-    IBeadController: ClassReference("org.apache.royale.html.beads.controllers.ItemRendererMouseController")
+    IBeadController: ClassReference("org.apache.royale.jewel.beads.controllers.ItemRendererMouseController")
+
+j|NavigationLinkItemRenderer
+    IBeadController: ClassReference("org.apache.royale.jewel.beads.controllers.ItemRendererMouseController")

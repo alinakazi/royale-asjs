@@ -17,12 +17,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<js:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
-		  xmlns:js="library://ns.apache.org/royale/basic"
-		  xmlns:html="library://ns.apache.org/royale/html"
-		  xmlns:j="library://ns.apache.org/royale/jewel"
-          xmlns:models="models.*"
-		  className="container" width="350">
+<j:SectionContent xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:j="library://ns.apache.org/royale/jewel"
+		xmlns:js="library://ns.apache.org/royale/basic"
+		xmlns:html="library://ns.apache.org/royale/html"
+		xmlns:models="models.*">
     
     <fx:Script>
 		<![CDATA[
@@ -32,29 +31,65 @@ limitations under the License.
                 selected.text = "Selected: " + list.selectedItem;
             }
 
-            public var simple:ArrayList = new ArrayList(["Blueberries", "Bananas", "Lemons", "Oranges", "Watermelons"]);
+            private var _simple:ArrayList = new ArrayList(["Blueberries", "Bananas", "Lemons", "Oranges", "Watermelons", "1", "2", "3", "4", "5", "6", "7"]);
+
+			public function get simple():ArrayList
+			{
+				return _simple
+			}
+
+			public function set simple(value:ArrayList):void
+			{
+				_simple = value;
+			}
+
+			public function assignNewData():void
+			{
+				list.dataProvider = new ArrayList(["blue", "red", "yellow", "green"]);
+			}
 		]]>
 	</fx:Script>
 
-    <js:model>
-        <models:ListsModel/>
-	</js:model>
+    <j:model>
+        <models:ListsModel id="listModel"/>
+	</j:model>
 
-	<js:beads>
-		<j:VerticalLayoutWithPaddingAndGap gap="10"/>
-	</js:beads>
-	
-	<html:H3 text="Jewel List"/>
-	
-    <j:List id="list" width="200" height="300" change="onChange(event)">
-		<js:beads>
-			<js:ConstantBinding
-				
-				sourcePropertyName="simple"
-				destinationPropertyName="dataProvider" />
-		</js:beads>
-    </j:List>
+	<j:beads>
+        <js:ContainerDataBinding/>
+    </j:beads>
 
-    <j:Label id="selected"/>
-	
-</js:Group>
+	<j:Grid gap="true">
+		<j:GridCell desktopNumerator="1" desktopDenominator="2"
+					tabletNumerator="1" tabletDenominator="2"
+					phoneNumerator="1" phoneDenominator="1">
+			<j:Card width="100%">
+				<html:H3 text="Jewel List"/>
+				<j:List id="list" width="200" height="300" change="onChange(event)">
+					<j:beads>
+						<js:ConstantBinding
+							sourcePropertyName="simple"
+							destinationPropertyName="dataProvider" />
+					</j:beads>
+				</j:List>
+				<j:Label id="selected"/>
+				<j:Button text="Assign new data" emphasis="{Button.PRIMARY}" click="assignNewData()"/>
+			</j:Card>
+		</j:GridCell>
+		<j:GridCell desktopNumerator="1" desktopDenominator="2"
+					tabletNumerator="1" tabletDenominator="2"
+					phoneNumerator="1" phoneDenominator="1">
+			<j:Card width="100%">
+				<html:H3 text="Jewel List With ItemRenderer"/>
+				<j:List width="200" height="300" className="iconListItemRenderer">
+					<j:beads>
+						<js:ConstantBinding
+							sourceID="listModel"
+							sourcePropertyName="iconListData"
+							destinationPropertyName="dataProvider" />
+					</j:beads>
+				</j:List>
+			</j:Card>
+		</j:GridCell>
+	</j:Grid>
+
+</j:SectionContent>

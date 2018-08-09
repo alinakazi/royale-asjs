@@ -17,32 +17,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<js:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
-		  xmlns:js="library://ns.apache.org/royale/basic"
-		  xmlns:html="library://ns.apache.org/royale/html"
-		  xmlns:j="library://ns.apache.org/royale/jewel"
-          className="container">
+<j:SectionContent xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:j="library://ns.apache.org/royale/jewel"
+				xmlns:html="library://ns.apache.org/royale/html">
     
-	<js:beads>
-		<j:VerticalLayoutWithPaddingAndGap gap="10"/>
-	</js:beads>
-	
-	<html:H3 text="Jewel RadioButton"/>
+	<j:Card width="350">
+		<html:H3 text="Jewel RadioButton"/>
 
-	<j:RadioButton text="RadioButton 1" groupName="radios" value="Test 1"/>
-	<j:RadioButton text="RadioButton 2" groupName="radios" value="Test 2" selected="true"/>
-	<j:RadioButton text="RadioButton 3" groupName="radios" value="Test 3"/>
+		<j:RadioButton text="RadioButton 1" groupName="radios" value="Test 1"/>
+		<j:RadioButton text="RadioButton 2" groupName="radios" value="Test 2" selected="true"/>
+		<j:RadioButton text="RadioButton 3" groupName="radios" value="Test 3"/>
 
-	<j:RadioButton text="Disabled">
-		<j:beads>
-			<j:Disabled/>
-		</j:beads>
-	</j:RadioButton>
+		<j:RadioButton text="Disabled">
+			<j:beads>
+				<j:Disabled/>
+			</j:beads>
+		</j:RadioButton>
 
-	<j:RadioButton text="Set and Disabled" selected="true">
-		<j:beads>
-			<j:Disabled/>
-		</j:beads>
-	</j:RadioButton>
-
-</js:Group>
+		<j:RadioButton text="Set and Disabled" selected="true">
+			<j:beads>
+				<j:Disabled/>
+			</j:beads>
+		</j:RadioButton>
+	</j:Card>
+</j:SectionContent>

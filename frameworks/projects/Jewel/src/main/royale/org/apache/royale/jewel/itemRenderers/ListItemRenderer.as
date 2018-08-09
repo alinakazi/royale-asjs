@@ -18,15 +18,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 package org.apache.royale.jewel.itemRenderers
 {
+	import org.apache.royale.core.StyledMXMLItemRenderer;
+	import org.apache.royale.utils.ClassSelectorList;
+
     COMPILE::JS
     {
         import org.apache.royale.core.WrappedHTMLElement;
 		import org.apache.royale.html.util.addElementToWrapper;
-        import org.apache.royale.utils.cssclasslist.toggleStyle;
     }
-
-	import org.apache.royale.html.supportClasses.MXMLItemRenderer;
-    
+	
 	/**
 	 *  The ListItemRenderer defines the basic Item Renderer for a Jewel List Component.
 	 *
@@ -35,7 +35,7 @@ package org.apache.royale.jewel.itemRenderers
 	 *  @playerversion AIR 2.6
 	 *  @productversion Royale 0.9.3
 	 */
-	public class ListItemRenderer extends MXMLItemRenderer
+	public class ListItemRenderer extends StyledMXMLItemRenderer
 	{
 		/**
 		 *  constructor.
@@ -49,9 +49,9 @@ package org.apache.royale.jewel.itemRenderers
 		{
 			super();
 
-            typeNames = "jewel item";
+			typeNames = "jewel item";
 		}
-		
+
 		private var _text:String = "";
 
         /**
@@ -137,59 +137,7 @@ package org.apache.royale.jewel.itemRenderers
 			//else
 			// 	useColor = backgroundColor;
 
-            COMPILE::JS
-            {
-                //element.className = "jewel item selected";
-                toggleStyle(this, "selected", selected);
-            }
+            toggleClass("selected", selected);
 		}
-
-		private var _twoLine:Boolean;
-        /**
-         *  Activate "twoline" class selector, for use in list item.
-		 *  Optional Two Line List Variant
-         *
-		 *  @langversion 3.0
-		 *  @playerversion Flash 10.2
-		 *  @playerversion AIR 2.6
-		 *  @productversion Royale 0.9.3
-         */
-        public function get twoLine():Boolean
-        {
-            return _twoLine;
-        }
-        public function set twoLine(value:Boolean):void
-        {
-            _twoLine = value;
-
-            COMPILE::JS
-            {
-                element.classList.toggle("twoline", _twoLine);
-            }
-        }
-
-		private var _threeLine:Boolean;
-        /**
-         *  Activate "threeline" class selector, for use in list item.
-		 *  Optional Three Line List Variant
-         *
-		 *  @langversion 3.0
-		 *  @playerversion Flash 10.2
-		 *  @playerversion AIR 2.6
-		 *  @productversion Royale 0.9.3
-         */
-        public function get threeLine():Boolean
-        {
-            return _threeLine;
-        }
-        public function set threeLine(value:Boolean):void
-        {
-            _threeLine = value;
-
-            COMPILE::JS
-            {
-                element.classList.toggle("threeline", _threeLine);
-            }
-        }
 	}
 }
