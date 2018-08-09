@@ -254,6 +254,17 @@ public class Button extends UIComponent implements IDataRenderer
 	}
 	
 	// ------------------------------------------------
+	//  fontStyle
+	// ------------------------------------------------
+	
+	public function get fontStyle():String
+	{
+		return "BOLD";
+	}
+	public function set fontStyle(value:String):void
+	{
+	}
+	// ------------------------------------------------
 	//  icon
 	// ------------------------------------------------
 	
@@ -280,6 +291,33 @@ public class Button extends UIComponent implements IDataRenderer
 			setInnerHTML();
 		}
 	}
+	
+	// ------------------------------------------------
+	//  disabledIcon
+	// ------------------------------------------------
+	
+	/**
+	 *  The URL of an disabledIcon to use in the button
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.2
+	 *  @playerversion AIR 2.6
+	 *  @productversion Royale 0.0
+	 */
+	public function get disabledIcon():String
+	{
+		return null;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set disabledIcon(value:String):void
+	{
+		
+	}
+	
+	
 	
 	
 	//----------------------------------
